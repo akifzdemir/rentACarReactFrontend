@@ -17,6 +17,7 @@ import { FormControl, InputLabel, MenuItem, Paper, Select } from '@mui/material'
 import CarImageService from '../services/CarImageService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
 
 function AddCar() {
 
@@ -26,6 +27,7 @@ function AddCar() {
   const carService = new CarService()
   const carImageService = new CarImageService()
   const navigate = useNavigate()
+  const user = useContext(AuthContext);
 
   const handleImageChance = (e) => {
     setFile(e.target.files[0])
@@ -37,6 +39,7 @@ function AddCar() {
       brandId: 0,
       modelYear: 0,
       dailyPrice: 0,
+      ownerId:0,
       description: ""
     },
     onSubmit: async (values) => {
@@ -85,6 +88,7 @@ function AddCar() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
+                 <MenuItem value={0}></MenuItem>
                   {
                     brands.map((brand) => (
                       <MenuItem key={brand.brandId} value={brand.brandId}>{brand.brandName}</MenuItem>
@@ -100,11 +104,13 @@ function AddCar() {
                   label="Color"
                   value={formik.values.colorId}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onBlur={formik.handleBlur}  
+
                 >
+                  <MenuItem value={0}></MenuItem>
                   {
                     colors.map((color) => (
-                      <MenuItem value={color.colorId}>{color.colorName}</MenuItem>
+                      <MenuItem key={color.colorId} value={color.colorId}>{color.colorName}</MenuItem>
                     ))
                   }
                 </TextField>

@@ -12,19 +12,39 @@ export const AuthProvider=({children})=>{
     const [auth,setAuth] = useState(false)
     const navigate = useNavigate()
 
-    const isLogged=()=>{
+    const checkTokenExprired = async () => {
         const token = localStorage.getItem("token")
         if (token) {
-            const decode = jwtDecode(token)
-            setUser(
-            {
-            userName:decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-            userId:decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
-            })
-            setAuth(true)
-        }else{
-            localStorage.removeItem("token")
+            let decode = await jwtDecode(token)
+            let currentDate = new Date();
+            if (decode.exp * 1000 < currentDate.getTime()) {
+                localStorage.removeItem("token")
+                console.log("Token Exprired")
+                setAuth(false)
+                navigate("/")
+            }
+        }
+    }
+
+    const isLogged= async()=>{
+        const token = localStorage.getItem("token")
+        try {
+            if (token) {
+                const decode = await jwtDecode(token)
+                setUser(
+                {
+                userName:decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                userId:decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
+                })
+                 setAuth(true)
+            }else{
+                setAuth(false)
+                setUser({userName:"",userId:0})
+            }
+        } catch (error) {
             setAuth(false)
+            localStorage.removeItem("token")
+            setUser({userName:"",userId:0})
         }
     }
 
@@ -37,6 +57,7 @@ export const AuthProvider=({children})=>{
 
     useEffect(()=>{
         isLogged()
+        checkTokenExprired()
     },[auth])
     
     const values ={

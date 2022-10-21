@@ -22,7 +22,7 @@ import AddCar from '../pages/AddCar'
 function Dashboard() {
     return (
         <>
-        <ToastContainer position='bottom-right'/>
+        <ToastContainer position='bottom-center'/>
             <Navi />
             <br />
             <Container maxWidth='xl'>

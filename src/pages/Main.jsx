@@ -81,7 +81,7 @@ function Main() {
                   </IconButton>
                   <Stack direction={'row'} spacing={2}>
                   <Button variant='text' color='inherit' startIcon={<MoreHorizOutlinedIcon/>}>Details</Button> 
-                  <AddRental/>
+                  <AddRental carId={car.carId}/>
                   </Stack>  
                 </CardActions>
               </Card>

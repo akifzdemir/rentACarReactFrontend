@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { Button, Divider } from '@mui/material';
 import ColorContex from '../context/ColorContex';
-import ColorService from '../services/ColorService'
 import { Link } from 'react-router-dom';
 
 function ColorsCategory() {

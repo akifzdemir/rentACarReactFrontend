@@ -1,16 +1,21 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import dayjs from 'dayjs';
+import { TextField } from '@mui/material';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+import RentalService from '../services/RentalService';
 
-function AddRental() {
+function AddRental({ carId }) {
 
     const [open, setOpen] = React.useState(false);
+    const { user, auth } = useContext(AuthContext);
+    const rentalService = new RentalService()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,10 +29,26 @@ function AddRental() {
         initialValues: {
             userId: 0,
             carId: 0,
-            rentDate: ""
+            returnDate: ""
         },
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (values) => {
+            values.carId = carId
+            values.userId = user.userId
+            const dateNow = dayjs().format('YYYY-MM-DD')
+            const selectedDate = values.returnDate
+            try {
+                if (auth) {
+                    if (selectedDate > dateNow) {
+                      
+                    } else {
+                        console.log("date error")
+                    }
+                } else {
+                    console.log("auth error")
+                }
+            } catch (error) {
+
+            }
         }
 
     })
@@ -35,7 +56,7 @@ function AddRental() {
     return (
         <div>
             <Button variant="contained" color='primary' onClick={handleClickOpen}>
-            Rent
+                Rent
             </Button>
             <Dialog
                 open={open}
@@ -48,7 +69,13 @@ function AddRental() {
                 <DialogTitle>{"Choose return date"}</DialogTitle>
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>
-                        <input type="date" onChange={formik.handleChange} name="rentDate" value={formik.values.rentDate} onBlur={formik.handleBlur} />
+                        <TextField
+                            type={'date'}
+                            value={formik.values.returnDate}
+                            onChange={formik.handleChange}
+                            name={'returnDate'}
+                            required
+                        />
                         <DialogActions>
                             <Button onClick={handleClose}>Close</Button>
                             <Button type='submit' onClick={handleClose}>Pay</Button>
