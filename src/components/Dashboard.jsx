@@ -17,6 +17,7 @@ import { Container } from '@mui/material'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import AddCar from '../pages/AddCar'
+import UserRentals from '../pages/UserRentals'
 
 
 function Dashboard() {
@@ -34,6 +35,7 @@ function Dashboard() {
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/postcar' element={<AddCar/>}/>
                     <Route path='/carlist' element={<CarList/>}/>
+                    <Route path='/myrentals' element={<UserRentals/>}/>
                 </Routes>
             </Container>
             <br />

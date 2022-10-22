@@ -9,7 +9,6 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { Button, ButtonGroup, Divider, Grid, Stack } from '@mui/material';
 import BrandsCategory from '../components/BrandsCategory';
@@ -81,7 +80,7 @@ function Main() {
                   </IconButton>
                   <Stack direction={'row'} spacing={2}>
                   <Button variant='text' color='inherit' startIcon={<MoreHorizOutlinedIcon/>}>Details</Button> 
-                  <AddRental carId={car.carId}/>
+                  <AddRental isRentable={car.isRentable} carId={car.carId}/>
                   </Stack>  
                 </CardActions>
               </Card>

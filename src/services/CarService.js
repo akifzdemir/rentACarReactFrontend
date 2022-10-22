@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiUrl } from "./ApiUrl";
 
 
 export default class CarService{
@@ -24,6 +25,9 @@ export default class CarService{
     }
     detete(values){
         return axios.post("https://localhost:7012/api/Cars/delete",values)
+    }
+    updateIsRentable(carId,isRentable){
+        return axios.put(apiUrl+`Cars/updateIsRentable?carId=${carId}&isRentable=${isRentable}`)
     }
     
 }

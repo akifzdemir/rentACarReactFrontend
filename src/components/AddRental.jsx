@@ -10,8 +10,9 @@ import { TextField } from '@mui/material';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import RentalService from '../services/RentalService';
+import { toast } from 'react-toastify';
 
-function AddRental({ carId }) {
+function AddRental({ carId, isRentable }) {
 
     const [open, setOpen] = React.useState(false);
     const { user, auth } = useContext(AuthContext);
@@ -39,25 +40,30 @@ function AddRental({ carId }) {
             try {
                 if (auth) {
                     if (selectedDate > dateNow) {
-                      
+                        const result = await rentalService.add(values);
+                        toast.success(result.data.message)
                     } else {
-                        console.log("date error")
+                        toast.error("Please insert a valid date")
                     }
                 } else {
-                    console.log("auth error")
+                    toast.error("You need to login for this operation")
                 }
             } catch (error) {
-
+                console.log(error)
             }
         }
-
     })
 
     return (
         <div>
-            <Button variant="contained" color='primary' onClick={handleClickOpen}>
-                Rent
-            </Button>
+            {
+                isRentable ?
+                    <Button variant="contained" color='primary' onClick={handleClickOpen}>
+                        Rent
+                    </Button>
+                    :
+                    <Button disabled>Not Rentable</Button>
+            }
             <Dialog
                 open={open}
                 keepMounted

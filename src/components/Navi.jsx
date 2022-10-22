@@ -68,6 +68,7 @@ function Navi() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Welcome :{user.userName}</MenuItem>
+                <MenuItem component={Link} to={'/myrentals'}>My Rentals</MenuItem>
                 <MenuItem onClick={()=>{logout()}}>Log Out</MenuItem>
               </Menu>
               </> 
