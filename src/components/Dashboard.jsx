@@ -18,9 +18,14 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import AddCar from '../pages/AddCar'
 import UserRentals from '../pages/UserRentals'
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 
 
 function Dashboard() {
+
+    const {auth} = useContext(AuthContext)
+
     return (
         <>
         <ToastContainer position='bottom-center'/>
@@ -33,9 +38,9 @@ function Dashboard() {
                     <Route path='/color/:colorId' element={<Main/>} />
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
-                    <Route path='/postcar' element={<AddCar/>}/>
-                    <Route path='/mycars' element={<CarList/>}/>
-                    <Route path='/myrentals' element={<UserRentals/>}/>
+                    <Route path='/postcar' element={auth ? <AddCar/> : <Login/>}/>
+                    <Route path='/mycars' element={auth ? <CarList/> : <Login/>}/>
+                    <Route path='/myrentals' element={auth ? <UserRentals/> : <Login/>}/>
                 </Routes>
             </Container>
             <br />
