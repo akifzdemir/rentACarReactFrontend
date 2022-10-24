@@ -11,12 +11,14 @@ import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import RentalService from '../services/RentalService';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function AddRental({ carId, isRentable }) {
 
     const [open, setOpen] = React.useState(false);
     const { user, auth } = useContext(AuthContext);
     const rentalService = new RentalService()
+    const navigate = useNavigate()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -42,6 +44,7 @@ function AddRental({ carId, isRentable }) {
                     if (selectedDate > dateNow) {
                         const result = await rentalService.add(values);
                         toast.success(result.data.message)
+                        navigate("/myrentals")
                     } else {
                         toast.error("Please insert a valid date")
                     }

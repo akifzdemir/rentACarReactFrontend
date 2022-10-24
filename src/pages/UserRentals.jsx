@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import AuthContext from '../context/AuthContext'
+import RentalContext from '../context/RentalContext'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,8 +11,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import RentalService from '../services/RentalService'
-import { Button } from '@mui/material';
+import { Button, CardContent } from '@mui/material';
 import CarService from '../services/CarService';
+import { toast } from 'react-toastify'
 
 function UserRentals() {
 
@@ -33,8 +35,11 @@ function UserRentals() {
     const handleReturn=async(carId)=>{
         try {
             await carService.updateIsRentable(carId,true)
+            getData()
+            toast.success("Car Returned !")
         } catch (error) {
             console.log(error)
+            toast.error("Error")
         }
     }
 
@@ -48,9 +53,10 @@ function UserRentals() {
       <Table sx={{textAlign:'center'}} aria-label="simple table">
         <TableHead sx={{backgroundColor:'black'}}>
           <TableRow>
+          <TableCell sx={{color:'white'}}>Brand</TableCell>
             <TableCell sx={{color:'white'}}>Rent Date</TableCell>
             <TableCell sx={{color:'white'}} >Return Date</TableCell>
-            <TableCell>Return the Car</TableCell>
+            <TableCell sx={{color:'white'}}>Return the Car</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,9 +65,10 @@ function UserRentals() {
               key={rental.rentalId}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
+              <TableCell>{rental.brandName}</TableCell>
               <TableCell>{rental.rentDate}</TableCell>
               <TableCell>{rental.returnDate}</TableCell>  
-              <Table><Button onClick={()=>{handleReturn(rental.carId)}}>Return</Button></Table>
+              <Table>{rental.isRentable ?  <Button disabled>Returned</Button> : <Button onClick={()=>{handleReturn(rental.carId)}}>Return</Button>}</Table>
             </TableRow>
           ))}
         </TableBody>

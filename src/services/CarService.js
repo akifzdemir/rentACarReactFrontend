@@ -20,6 +20,9 @@ export default class CarService{
     getCarsDetailsByColorId(colorId){
         return axios.get("https://localhost:7012/api/Cars/getcardetailsbycolor?colorId="+colorId)
     }
+    getCarsDetailsByUserId(userId){
+        return axios.get("https://localhost:7012/api/Cars/getcardetailsbyuser?userId="+userId)
+    }
     add(values){
         return axios.post("https://localhost:7012/api/Cars/add",values)
     }

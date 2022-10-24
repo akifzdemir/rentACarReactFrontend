@@ -9,6 +9,6 @@ export default class RentalService{
         return axios.get(apiUrl+"Rentals/getlAll")
     }
     getByUserId(id){
-        return axios.get(apiUrl+"Rentals/getByUserId?userId="+id)
+        return axios.get(apiUrl+"Rentals/getDetailsByUserId?userId="+id)
     }
 }

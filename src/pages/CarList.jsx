@@ -11,16 +11,28 @@ import {Link} from 'react-router-dom'
 import { Button } from '@mui/material';
 import CarService from '../services/CarService';
 import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
+import { useState } from 'react';
 
 function CarList() {
-  const {cars,getAllCars} = useContext(CarContext)
-
+  
+  const {user} = useContext(AuthContext)
   const carService = new CarService();
+  const [cars,setCars] = useState([]);
+
+  const getData=async()=>{
+    try {
+      const result = await carService.getCarsDetailsByUserId(user.userId)
+      setCars(result.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleDelete=async(car)=>{
     try {
       const result = await carService.detete(car)
-      getAllCars()
+      getData()
       toast.success("Car Deleted !",{
         position:'bottom-right'
       })
@@ -31,6 +43,10 @@ function CarList() {
       })
     }
   }
+
+  useEffect(()=>{
+    getData()
+  },[user])
   return (
     <>
       <TableContainer sx={{mt:3}} component={Paper}>

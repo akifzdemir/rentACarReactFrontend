@@ -34,7 +34,7 @@ function Dashboard() {
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/postcar' element={<AddCar/>}/>
-                    <Route path='/carlist' element={<CarList/>}/>
+                    <Route path='/mycars' element={<CarList/>}/>
                     <Route path='/myrentals' element={<UserRentals/>}/>
                 </Routes>
             </Container>

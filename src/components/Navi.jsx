@@ -35,9 +35,7 @@ function Navi() {
               Rent A Car
             </Typography>
             <Stack direction={'row'} sx={{ mr: 2 }}>
-              <Button>Colors</Button>
-              <Button>Brands</Button>
-              <Button component={Link} to={'/postcar'}>Post Car</Button>
+              <Button component={Link} to={'/postcar'}>Post a Car</Button>
             </Stack>
             {
               auth ?
@@ -69,6 +67,7 @@ function Navi() {
               >
                 <MenuItem onClick={handleClose}>Welcome :{user.userName}</MenuItem>
                 <MenuItem component={Link} to={'/myrentals'}>My Rentals</MenuItem>
+                <MenuItem component={Link} to={'/mycars'}>My Cars</MenuItem>
                 <MenuItem onClick={()=>{logout()}}>Log Out</MenuItem>
               </Menu>
               </> 
