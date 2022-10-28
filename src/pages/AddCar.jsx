@@ -27,7 +27,7 @@ function AddCar() {
   const carService = new CarService()
   const carImageService = new CarImageService()
   const navigate = useNavigate()
-  const user = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
 
   const handleImageChance = (e) => {
     setFile(e.target.files[0])
@@ -45,6 +45,8 @@ function AddCar() {
     onSubmit: async (values) => {
       const formData = new FormData();
       try {
+        values.ownerId = user.userId
+        console.log(values.ownerId+" +"+user.userId)
         const result = await carService.add(values)
         const carId = result.data.message
         formData.append("carId", carId)

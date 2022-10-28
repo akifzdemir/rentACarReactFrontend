@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Link} from 'react-router-dom'
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import CarService from '../services/CarService';
 import { toast } from 'react-toastify';
 import AuthContext from '../context/AuthContext';
@@ -49,6 +49,9 @@ function CarList() {
   },[user])
   return (
     <>
+    <Typography variant="h3">
+    My Cars
+  </Typography>
       <TableContainer sx={{mt:3}} component={Paper}>
       <Table sx={{textAlign:'center'}} aria-label="simple table">
         <TableHead sx={{backgroundColor:'black'}}>
